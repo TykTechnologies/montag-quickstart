@@ -17,14 +17,15 @@ services:
     image: "ghcr.io/go-rod/rod:latest"
     restart: always
   
-  reranker:
-    ports: 
-      - 4000:80
-    image: "lonelycode/reranker:latest"
-    env_file: "./.env"
-    volumes:
-      - "~/tmp:/root/.cache/huggingface/hub:rw"
-    restart: always
+  ## Uncomment the reranker and update RERANKER_URL, RERANKER_TOKEN in .env file
+  # reranker:
+  #   ports: 
+  #     - 4000:80
+  #   image: "lonelycode/reranker:latest"
+  #   env_file: "./.env"
+  #   volumes:
+  #     - "~/tmp:/root/.cache/huggingface/hub:rw"
+  #   restart: always
   
   yt_getter:
     ports: 

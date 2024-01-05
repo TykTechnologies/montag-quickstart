@@ -35,7 +35,7 @@ services:
   embed_server:
     ports: 
       - 8001:8000
-    image: "lonelycode/embed-server:latest"
+    image: "lonelycode/embed_server:latest"
     restart: always
   
   psql:

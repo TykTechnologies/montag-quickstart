@@ -1,0 +1,63 @@
+services:
+  chromadb:
+    ports: 
+      - 8000:8000
+    image: "chromadb/chroma:latest"
+
+  friday:
+    ports: 
+      - 7656:8080
+    image: "lonelycode/friday:latest"
+    env_file: "./.env"
+    volumes:
+      - "./jobs.json:/app/jobs.json:rw"
+  rod:  
+    ports: 
+      - 7317:7317
+    image: "ghcr.io/go-rod/rod:latest"
+    restart: always
+  
+  reranker:
+    ports: 
+      - 4000:80
+    image: "lonelycode/reranker:latest"
+    env_file: "./.env"
+    volumes:
+      - "~/tmp:/root/.cache/huggingface/hub:rw"
+    restart: always
+  
+  yt_getter:
+    ports: 
+      - 46536:8080
+    image: "lonelycode/yt_getter:latest"
+    
+  
+  embed_server:
+    ports: 
+      - 8001:8000
+    image: "lonelycode/embed-server:latest"
+    restart: always
+  
+  psql:
+    ports: 
+      - 5432:5432
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+    volumes:
+      - "./postgres:/var/lib/postgresql/data:rw"
+    restart: always
+
+  montag: 
+    ports: 
+      - 8080:8080
+    image: "lonelycode/montag-ai:latest"
+    restart: always
+    depends_on:
+      - psql
+      - chromadb
+    env_file: "./.env"
+    volumes:
+      - "./montag.db:/app/montag.db:rw"
+      - "./shared:/app/shared:rw"
+      - "./.env:/app/.env:ro"

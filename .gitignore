@@ -1,3 +1,4 @@
 montag.db
 postgres
 shared
+.env

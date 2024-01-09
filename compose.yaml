@@ -59,6 +59,5 @@ services:
       - chromadb
     env_file: "./.env"
     volumes:
-      - "./montag.db:/app/montag.db:rw"
       - "./shared:/app/shared:rw"
       - "./.env:/app/.env:ro"
